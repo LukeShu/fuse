@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  pull_request: {}
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v3
+      with:
+        go-version: ^1.18
+    - uses: actions/checkout@v3
+    - run: make lint
+
+  check-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v3
+      with:
+        go-version: ^1.18
+    - name: Install Fuse
+      run: sudo apt-get update && sudo apt-get install -y fuse3 libfuse-dev
+    - uses: actions/checkout@v3
+    - run: make check
+
+  check-freebsd:
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v3
+    - uses: vmactions/freebsd-vm@v0.1.6
+      with:
+        prepare: "kldload fusefs && pkg install -y go gmake"
+        run: gmake check
+
+  pass:
+    needs:
+      - lint
+      - check-linux
+      - check-freebsd
+    runs-on: ubuntu-latest
+    steps:
+      - name: No-Op
+        if: ${{ false }}
+        run: "echo Pass"
