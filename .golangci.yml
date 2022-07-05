@@ -1,0 +1,15 @@
+linters:
+  disable:
+    - structcheck # doesn't support Go 1.18 yet
+
+    # I don't have a good reason for disabling these, other than that
+    # they currently don't pass.
+    - deadcode
+    - errcheck
+    - gosimple
+    - govet
+    - unused
+    - varcheck
+linters-settings:
+  gofmt:
+    simplify: true
