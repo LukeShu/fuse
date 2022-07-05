@@ -20,7 +20,7 @@ func TestOpenError(t *testing.T) {
 }
 
 func TestReal(t *testing.T) {
-	r, err := mountinfo.Open("testdata/fuzz/corpus/real.mountinfo")
+	r, err := mountinfo.Open("testdata/real.mountinfo")
 	if err != nil {
 		t.Fatalf("cannot open mountinfo: %v", err)
 	}
@@ -61,7 +61,7 @@ func TestReal(t *testing.T) {
 }
 
 func TestEscape(t *testing.T) {
-	r, err := mountinfo.Open("testdata/fuzz/corpus/escaped.mountinfo")
+	r, err := mountinfo.Open("testdata/escaped.mountinfo")
 	if err != nil {
 		t.Fatalf("cannot open mountinfo: %v", err)
 	}
@@ -85,7 +85,7 @@ func TestEscape(t *testing.T) {
 }
 
 func TestCrashers(t *testing.T) {
-	r, err := mountinfo.Open("testdata/fuzz/corpus/crashers.mountinfo")
+	r, err := mountinfo.Open("testdata/crashers.mountinfo")
 	if err != nil {
 		t.Fatalf("cannot open mountinfo: %v", err)
 	}
